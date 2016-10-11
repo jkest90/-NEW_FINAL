@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html ng-app="module.auth">
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/styles/auth.css">
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="/scripts/module.auth.js"></script>
+
+    </head>
+    <body ng-controller="module.auth.controller as auth">
+        <div class="container">
+            <p class="text-center">
+                <a class="btn btn-default" href="/">Homepage</a>
+            </p>
+            <div class="row">
+                <div class="col-xs-12">
+                    <img src="/new logo.png">
+                    <h2> Your road trip companion...</h2>
+                    <h3>  NEXTSTOP is your guide to discovering exciting things to on your next road trip.  Simply choose where you'd like to travel and how long you think you'll stay at your destinations.
+                         Select what you'd like to do, and NEXTDOOR will with calculate your route, and get you events around the days you'll be there.
+
+                         Find tickets, create an itinerary, and start making memories. </h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <h4><strong> Getting Started is Easy... </strong></h4>
+                <div class="col-xs-4"> </div>
+                <div class="col-xs-4"> </div>
+                <div class="col-xs-4"> </div>
+            </div>
+
+
+            <div class="login-page">
+                <div class="form">
+                    <form class="register-form" ng-submit="auth.register.submit($event)">                           <!-- restistration form -->
+                        <!-- <input type="text" placeholder="name"/>                                                        name input -->
+                        <input type="text" required placeholder="email address" ng-model="auth.payload.email"/>             <!-- email input -->
+                        <input type="password" required placeholder="password" ng-model="auth.payload.password" />          <!-- password input -->
+                        <button type="submit">create</button>                                                              <!-- create account -->
+                        <p class="message">Already registered? <a href="#">Sign In</a></p>         <!-- already registered message -->
+                        <p ng-class="auth.register.alert">{{ auth.register.message }}</p>
+                    </form>
+                    <!-- Login form  -->
+                    <form ng-submit="auth.login.submit($event)" class="login-form">
+                        <input type="text" required placeholder="username" ng-model="auth.payload.email"/>        <!-- username input-->
+                        <input type="password" required placeholder="password" ng-model="auth.payload.password"/> <!-- password input -->
+                        <button href="/"type="submit">login</button>                                             <!-- login button -->
+                        <p class="message">Not registered? <a href="#">Create an account</a></p>         <!-- create an account message/link-->
+                        <p ng-class="auth.login.alert">{{ auth.login.message }}</p>                      <!-- invalid username/password -->
+                    </form>
+                </div>
+            </div> <!-- end login -->
+        </div> <!-- end container -->
+    </body>
+</html>
+
+<!--        <section id="tabs">
+
+            <div id="register" role="tabpanel" class="tab-pane">
+                <form ng-submit="auth.register.submit($event)">
+                    <h1 class="text-center">Register!</h1>
+                    <fieldset class="form-group">
+                        <label class="sr-only" for="email">Email</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">@</div>
+                            <input required placeholder="Email" class="form-control" type="text" ng-model="auth.payload.email"/>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label class="sr-only" for="password">Password</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                            <input required placeholder="Create a password" class="form-control" type="password" ng-model="auth.payload.password"/>
+                        </div>
+                    </fieldset>
+                    <button class="btn btn-primary" type="submit">Register</button>
+                    <p ng-class="auth.register.alert">{{ auth.register.message }}</p>
+                </form>
+            </div>
+            </div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#login" aria-controls="home" role="tab" data-toggle="tab">Login</a>
+                </li>
+                <li role="presentation">
+                    <a href="#register" aria-controls="profile" role="tab" data-toggle="tab">Register</a>
+                </li>
+            </ul>
+            <div class="tab-content"> -->
+<!--                 <div id="login" role="tabpanel" class="tab-pane active">
+                    <form ng-submit="auth.login.submit($event)">
+                        <h1 class="text-center">Login!</h1>
+                        <fieldset class="form-group">
+                            <label class="sr-only" for="email">Email</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">@</div>
+                                <input required placeholder="Email" class="form-control" type="text" ng-model="auth.payload.email"/>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label class="sr-only" for="password">Password</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                <input required placeholder="Password" class="form-control" type="password" ng-model="auth.payload.password"/>
+                            </div>
+                        </fieldset>
+                        <input class="btn btn-primary" type="submit" value="Login">
+                        <p ng-class="auth.login.alert">{{ auth.login.message }}</p>
+                    </form>
+                </div>
+        </section> -->

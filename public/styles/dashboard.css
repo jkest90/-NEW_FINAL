@@ -1,0 +1,30 @@
+html {
+    height: 100%;
+
+}
+body {
+    background-image: url('road.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+
+}
+.container {
+    display: flex;
+	/* Center according to the main axis */
+	justify-content: center;
+	/* Center according to the secondary axis */
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin:0;
+    text-align:center;
+}
+
+.item {
+    border: 1px solid black;
+    border-radius: 40px;
+    padding:60px;
+    background-color:rgba(238, 239, 244, 0.63)
+    /*margin:0;*/
+}

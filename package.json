@@ -1,0 +1,36 @@
+{
+  "name": "final-project-road-trip",
+  "version": "1.0.0",
+  "description": "RefactorU Final Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Jonathan Kestler",
+  "license": "ISC",
+  "dependencies": {
+    "@google/maps": "^0.2.1",
+    "angular-leaflet-directive": "^0.10.0",
+    "angular-mapboxgl-directive": "^0.13.5",
+    "bcrypt": "^0.8.7",
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.2",
+    "client-sessions": "^0.7.0",
+    "colors": "^1.1.2",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "install": "^0.8.1",
+    "leaflet-plugins": "^1.9.3",
+    "less": "^2.7.1",
+    "mapbox": "^1.0.0-beta3",
+    "mapbox-directions.js": "^0.4.0",
+    "mongoose": "^4.6.1",
+    "morgan": "^1.7.0",
+    "ng-datepicker": "^1.0.2",
+    "ngmap": "^1.17.7",
+    "npm": "^3.10.8",
+    "path": "^0.12.7",
+    "request": "^2.75.0"
+  }
+}
