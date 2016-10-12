@@ -5,26 +5,12 @@ angular.module('NavApp')
     NavCtrl.$inject=['NgMap', '$timeout', 'NavFactory', '$q'];
     Router.$inject = ['$routeProvider']
 
-$(function(){
-	$('#slide-submenu').on('click',function() {
-        $(this).closest('.list-group').fadeOut('slide',function(){
-        	$('.mini-submenu').fadeIn();
-        });
 
-      });
 
-	$('.mini-submenu').on('click',function(){
-        $(this).next('.list-group').toggle('slide');
-        $('.mini-submenu').hide();
-	})
-})
 
+/* NgRoute */
 function Router($routeProvider) {
 
-    $(document).ready(function(){
-        $('#myModal').modal('show');
-        $(".modal-backdrop").hide();
-    });
 
     $routeProvider.otherwise({ redirectTo : '/' });
     $routeProvider
@@ -38,6 +24,10 @@ function Router($routeProvider) {
 
 /* NavControl */
 function NavCtrl(NgMap, $timeout, NavFactory, $q) {
+    $(document).ready(function(){
+        $('#myModal').modal('show');
+        $(".modal-backdrop").hide();
+    });
 
 
     console.log('Navctrl:loaded!', NavCtrl)
@@ -52,6 +42,7 @@ function NavCtrl(NgMap, $timeout, NavFactory, $q) {
     nav.musicData = [];
     nav.tripStep = 0;
     nav.eventIndex = 0;
+    nav.showOrigin = false;
 
     nav.getEventIndex = function(index) {
         var newIndex;
@@ -63,6 +54,10 @@ function NavCtrl(NgMap, $timeout, NavFactory, $q) {
         nav.eventIndex = newIndex;
     }
 
+    // function changeCat(nav.category) {
+    //     getEvents(nav.category)
+    //     console.log(nav.category)
+    // }
 /* Requests API through factory's getEvent object. Return event data */
     function getEvents(collectionOfParams) {
         var requests = collectionOfParams.map(NavFactory.getEvent);
@@ -71,8 +66,8 @@ function NavCtrl(NgMap, $timeout, NavFactory, $q) {
             data.forEach(function(response, index) {
                 console.log(response);
                 nav.musicData.push(response.data.events);
+                console.log(nav.musicData);
                 console.log("Response", index, '::', response.data.events);
-                console.log('Response Data', nav.resData);
 
                 nav.resData.forEach(function(res,ind){
                     console.log(res)
@@ -135,9 +130,9 @@ nav.toggle = function() {
                 lat:  nav.place.geometry.location.lat(),
                 lng:  nav.place.geometry.location.lng(),
                 date: nav.formatSplit,
-                category: 'music'
+                category: nav.category || 'music',
+                // page_size: '50'
             }]);
-
 
             nav.wayPoint.push({
                 location :{
@@ -200,7 +195,7 @@ nav.toggle = function() {
     nav.submitAddress = function() {
         nav.dest = nav.AutoComplete.getPlace()
         console.log("DEST: ", nav.dest)
-
+        nav.showOrigin = true
         var newTime = new Date();
         var time = new Date(newTime.setSeconds(newTime.getSeconds() + nav.tValue));
         var formatMoment = moment(time).format("YYYY/MM/DD");
@@ -210,7 +205,8 @@ nav.toggle = function() {
             lat:  nav.dest.geometry.location.lat(),
             lng:  nav.dest.geometry.location.lng(),
             date: formatSplit,
-            category: 'music'
+            category: nav.category ||'music',
+            // page_size: '50'
         }]);
 
 

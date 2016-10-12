@@ -65,7 +65,7 @@ module.exports = {
                         res.status(403).send(errors.login);
                     } else {
                         req.session.uid = user._id; // set the user in the session!
-                        res.send(messages.login); // send a success message
+                        res.send(messages.login);  //send a success message
                     }
                 });
             }

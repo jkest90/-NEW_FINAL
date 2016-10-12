@@ -7,7 +7,7 @@ module.exports = {
         if(req.query.category) {
 
             request.get('http://api.eventful.com/json/events/search?app_key=w2rkS95Bbmj8DNzS&where=' +
-            req.query.lat + ',' + req.query.lng +"&date="+ req.query.date + '&within=25&category=' + req.query.category,
+            req.query.lat + ',' + req.query.lng +"&date="+ req.query.date + '&within=25&category=' + req.query.category + '&page_size=50',
 
                 (err, response, body) => {
                     if (err) {

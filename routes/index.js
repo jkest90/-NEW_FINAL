@@ -9,7 +9,6 @@ module.exports = function(app) {
         res.send('home');
     });
     app.get('/events', event.getEvents);
-
     //AUTH
     app.get('/login', Auth.render); // route for the login page
     app.get('/logout', Auth.logout); // route for logging out

@@ -1,7 +1,19 @@
 <h1> events </h1>
 
+<!-- <select ng-model="nav.category" ng-change="nav.changeCat()"> -->
+    <!-- <option value="music">Music</option>
+    <option value="comedy">Comedy</option>
+    <option value="family_fun_kids">Family</option>
+    <option value="art">Art</option>
+    <option value="attractions">Museum</option>
+    <option value="outdoors_recreation">Outdoors</option>
+    <option value="performing_arts">Performing Arts</option>
+    <option value="sports">Sports</option>
+    <option value="food">Food</option>
+</select> -->
+
 <ul>
     <li ng-repeat="event in nav.musicData[nav.eventIndex].event">
-        {{event.performers.performer.name}}
+        {{event.title}}
     </li>
 </ul>

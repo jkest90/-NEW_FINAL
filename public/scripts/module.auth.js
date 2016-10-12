@@ -23,7 +23,7 @@ function Auth($http) { // auth controller constructor function
         success: function(res) {
             // when login is successful, redirect them into the dashboard
             console.info('auth.login.success');
-            location.href = "/";
+            location.href = '/#/map';
         },
         error: function(err) {
             console.error('Login.error');
