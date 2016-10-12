@@ -1,0 +1,72 @@
+<div class="row" id="inputRow">
+    <div class="col-xs-4">
+        <p style="color: white"> Enter your origin: </p> <input style="width:200px" places-auto-complete size=60 component-restrictions="{country:'us'}" ng-model="nav.originInput" />
+        <p style="color:   white"> Enter your destination: </p> <input style="width:200px" places-auto-complete size=60 component-restrictions="{country:'us'}" ng-model="nav.destinationInput" on-place-changed="nav.placeChanged()"  />
+        <button type="submit" ng-click="nav.submitAddress()"  class="btn btn-info">GO! </button>
+    </div>
+    <div class="col-xs-4">
+        <button style="display:block" ng-click="nav.addNewInput()" class="btn btn-info">Add a waypoint!</button>
+
+        <input
+        ng-show="nav.showPlace"
+        size=60
+        places-auto-complete size=80
+        on-place-changed="nav.placeChanged()"
+        ng-repeat="place in nav.inputs track by $index" />
+    </div>
+    <div class="col-xs-4">
+        <button ng-click="nav.addWayPoint()" href="/events" class="btn btn-primary">Get Waypoint Directions</button>
+    </div>
+</div> <!-- end input row -->
+
+<div class="row" id="mapRow">
+    <div id ="mapContainer" class="col-xs-12 col-sm-6">
+        <!-- ng-map -->
+        <ng-map center="43,-93" zoom="4" default-style="false">
+            <directions
+            draggable="true"
+            waypoints="{{nav.wayPoint}}"
+            travel-mode="ROADMAP"
+            origin= "{{nav.origin}}"
+            destination="{{nav.destination}}"
+            </directions>
+        </ng-map>
+    </div>
+
+<section id="resultsSection">
+
+
+    <div class="col-xs-12" id="results">
+        <!-- results -->
+        <h3> Origin:  {{nav.startFinish[0].origin}} </h3>
+        <h3> Destination: {{nav.startFinish[0].destination}}</h3>
+
+        <hr>
+        <p> lorem ipsum stupid shit fuck </p>
+        </hr>
+        <hr>
+        </hr>
+    </div>
+
+
+    <div ng-repeat="leg in nav.cityInfo" class="col-xs-12" id="results">
+        <!-- results -->
+        <h3> Origin:  {{leg.start_address}} </h3>
+        <h3> Destination: {{leg.end_address}}</h3>
+
+        <hr>
+        <row>
+        <span class="col-xs-6">Travel time: {{leg.text}}<br>
+        Arrival time: {{leg.arrival_time}}
+        </span>
+        <span class"col-xs-6">
+            <button>Get Events</button>
+        </span>
+        </row>
+        </hr>
+        <hr>
+        </hr>
+    </div>
+</section>
+
+</div> <!-- end map row -->

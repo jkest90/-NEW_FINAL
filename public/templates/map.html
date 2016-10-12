@@ -1,0 +1,48 @@
+<div class="row" id="mapRow">
+    <div id ="mapContainer" class="col-xs-12 col-sm-6">
+        <!-- ng-map -->
+        <ng-map center="39,-95" zoom="4" default-style="false">
+            <directions
+            draggable="true"
+            waypoints="{{nav.wayPoint}}"
+            travel-mode="ROADMAP"
+            origin= "{{nav.origin}}"
+            destination="{{nav.destination}}"
+            </directions>
+        </ng-map>
+    </div>
+<!-- 39.13006&lng=-95.22949&z=5 -->
+    <section class="col-xs-12 col-sm-6" id="resultsSection">
+
+
+        <div class="col-xs-12" id="results">
+            <!-- results -->
+            <h3> Origin:  {{nav.startFinish[0].origin}} </h3>
+            <h3> Destination: {{nav.startFinish[0].destination}}</h3>
+
+            <hr>
+                <p> lorem ipsum stupid shit fuck </p>
+            </hr>
+        </div>
+
+
+        <div ng-repeat="leg in nav.cityInfo" class="col-xs-12" id="results">
+            <!-- results -->
+            <h3> Origin:  {{leg.start_address}} </h3>
+            <h3> Destination: {{leg.end_address}}</h3>
+
+            <hr>
+                <row>
+                    <span class="col-xs-6">Travel time: {{leg.text}}<br>
+                        Arrival time: {{leg.arrival_time}}
+                    </span>
+                    <span class"col-xs-6">
+                        <a ng-click="nav.getEventIndex($index)" href="/#/events">Get Events</a>
+                    </span>
+                </row>
+            </hr>
+        </div> <!--- end results -->
+    </section>
+</div>
+
+</div> <!-- end map row -->

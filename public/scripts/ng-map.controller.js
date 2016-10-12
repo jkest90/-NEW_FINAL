@@ -1,12 +1,40 @@
 angular.module('NavApp')
-    .controller('NavController', NavCtrl);
+    .controller('NavController', NavCtrl)
+    .config(Router);
 
-NavCtrl.$inject=['NgMap', '$timeout', 'NavFactory', '$q'];
+    NavCtrl.$inject=['NgMap', '$timeout', 'NavFactory', '$q'];
+    Router.$inject = ['$routeProvider']
 
-// 
-// $(document).ready(function(){
-//     $('#myModal').modal('show');
-// });
+$(function(){
+	$('#slide-submenu').on('click',function() {
+        $(this).closest('.list-group').fadeOut('slide',function(){
+        	$('.mini-submenu').fadeIn();
+        });
+
+      });
+
+	$('.mini-submenu').on('click',function(){
+        $(this).next('.list-group').toggle('slide');
+        $('.mini-submenu').hide();
+	})
+})
+
+function Router($routeProvider) {
+
+    $(document).ready(function(){
+        $('#myModal').modal('show');
+        $(".modal-backdrop").hide();
+    });
+
+    $routeProvider.otherwise({ redirectTo : '/' });
+    $routeProvider
+    .when('/events', {
+        templateUrl : '/templates/getEvents.html'
+    })
+    .when('/map', {
+        templateUrl : '/templates/map.html'
+    })
+}
 
 /* NavControl */
 function NavCtrl(NgMap, $timeout, NavFactory, $q) {
@@ -23,6 +51,17 @@ function NavCtrl(NgMap, $timeout, NavFactory, $q) {
     nav.resData = [];
     nav.musicData = [];
     nav.tripStep = 0;
+    nav.eventIndex = 0;
+
+    nav.getEventIndex = function(index) {
+        var newIndex;
+        if(index === nav.cityInfo.length-1){
+            newIndex = 0;
+        } else {
+            newIndex = index+1;
+        }
+        nav.eventIndex = newIndex;
+    }
 
 /* Requests API through factory's getEvent object. Return event data */
     function getEvents(collectionOfParams) {
@@ -48,6 +87,13 @@ function NavCtrl(NgMap, $timeout, NavFactory, $q) {
         })
     }
 
+nav.toggle = function() {
+    if (!nav.sidebar) {
+        nav.sidebar = 'open';
+    } else {
+        nav.sidebar = '';
+    }
+}
 
 
 /* Loop through musicData array */
