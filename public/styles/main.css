@@ -130,13 +130,6 @@ ng-map > div {
     border-radius: 15px;
 }
 
-img {
-    height: 100%;
-    width: 33%;
-    position: relative;
-    top: 0;
-    left: 0;
-}
 
 /* SIDEBAR */
 
@@ -221,18 +214,14 @@ img {
     border-radius: 10px;
     margin-bottom: 10px;
 }
-/*#eventInfo {
-    height: 150px;
-}
-#eventInfoRow {
-    height: 150px;
-}*/
-#ngSrc {
-    float:right;
-    margin-top: 5px;
-    margin:-left: 100px;
-}
 
+#ngSrc > img {
+    position: relative;
+    top: 20px;
+    left: 0;
+    width: 60%;
+
+}
 
 /*#categoryRow {
     margin: 0 auto;

@@ -25,6 +25,7 @@
                             <h4>{{event.venue_address}}</h4>
                             <h4>{{event.city_name}}</h4>
                             <h4>{{event.start_time | amDateFormat: 'MMMM Do YYYY, h:mm a'}}</h4>
+                            <a href={{event.url}}><h4>Tickets</h4> </a>
                         </div>
                         <div id="ngSrc" class="col-xs-4">
                             <img ng-src="{{event.image.medium.url}}" />

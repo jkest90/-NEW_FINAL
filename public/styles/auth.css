@@ -123,3 +123,11 @@ body {
     height: 150px;
     border: 1px solid black;
 }*/
+
+#authText {
+    border: 1px solid white;
+    /*height: 150px;*/
+    border-radius: 10px;
+    background-color: rgba(249, 255, 245, 0.47);
+    /*margin-top: 10px;*/
+}

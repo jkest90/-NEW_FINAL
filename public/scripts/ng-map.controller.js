@@ -8,8 +8,8 @@ angular.module('NavApp')
     // })
 
     NavCtrl.$inject=['NgMap', '$timeout', 'NavFactory', '$q', 'moment'];
-    Router.$inject = ['$routeProvider']
-
+    Router.$inject = ['$routeProvider'];
+    
 // .filter ('formatDate', function() {
 //     return function(start_time) {
 //         return moment(start_time).format('MMMM Do YYYY, h:mm a')
@@ -34,8 +34,11 @@ angular.module('NavApp').filter( 'domain', function () {
 /* NgRoute */
 function Router($routeProvider) {
 
-    $routeProvider.otherwise({ redirectTo : '/' });
+    $routeProvider.otherwise({ redirectTo : '/map' });
     $routeProvider
+    .when('/', {
+        redirectTo : '/map'
+    })
     .when('/events', {
         templateUrl : '/templates/getEvents.html'
     })
