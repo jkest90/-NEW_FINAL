@@ -1,4 +1,40 @@
-<h1> events </h1>
+    <div class="row" id="headerRow">
+        <div class="col-xs-12" id="eventHeaderCol">
+            <h1><span style="font-family: 'Pacifico', cursive;color:rgb(87, 98, 193)"> Events near {{nav.musicData[nav.eventIndex].event[1].city_name}} </span></h1>
+        </div>
+    </div>
+
+    <div class="row" id="eventsRow">
+        <div class="col-xs-12" id="categoryCol">
+            <a class="active" href="/music"><h3>Music</h3></a>
+            <a class="active" href="/comedy"><h3>Comedy</h3></a>
+            <a class="active" href="/family_fun_kids"><h3>Family</h3></a>
+            <a class="active" href="/art"><h3>Art</h3></a>
+            <a class="active" href="/attractions"><h3>Museums</h3></a>
+            <a class="active" href="/outdoors_recreation"><h3>Outdoors</h3></a>
+            <a class="active" href="/performing_arts"><h3>Performing Arts</h3></a>
+            <a class="active" href="/sports"><h3>Sports</h3></a>
+            <a class="active" href="/food"><h3>Food</h3></a>
+        </div>
+        <div class="row" id="realEventsRow">
+            <div id="events" class="col-xs-12 " ng-repeat="event in nav.musicData[nav.eventIndex].event" >
+                    <div class="row" id="eventInfoRow">
+                        <div class="col-xs-8" id="eventInfo">
+                            <h3><span style="font-family: 'Comfortaa', cursive">{{event.title}}</span></h3>
+                            <h4>{{event.venue_name}}</h4>
+                            <h4>{{event.venue_address}}</h4>
+                            <h4>{{event.city_name}}</h4>
+                            <h4>{{event.start_time | amDateFormat: 'MMMM Do YYYY, h:mm a'}}</h4>
+                        </div>
+                        <div id="ngSrc" class="col-xs-4">
+                            <img ng-src="{{event.image.medium.url}}" />
+                            <!-- <a href={{event.url}}>{{event.url | domain }} </a> -->
+                        </div>
+                    </div>
+            </div>
+        </div> <!-- end events row -->
+    </div>
+
 
 <!-- <select ng-model="nav.category" ng-change="nav.changeCat()"> -->
     <!-- <option value="music">Music</option>
@@ -12,8 +48,5 @@
     <option value="food">Food</option>
 </select> -->
 
-<ul>
-    <li ng-repeat="event in nav.musicData[nav.eventIndex].event">
-        {{event.title}}
-    </li>
-</ul>
+
+ <!-- {{nav.cityInfo[nav.eventIndex].end_address}} -->

@@ -1,16 +1,38 @@
 angular.module('NavApp')
     .controller('NavController', NavCtrl)
     .config(Router);
+    // .filter ('formatDate', function() {
+    //     return function(start_time) {
+    //         return moment(start_time).format('MMMM Do YYYY, h:mm a')
+    //     }
+    // })
 
-    NavCtrl.$inject=['NgMap', '$timeout', 'NavFactory', '$q'];
+    NavCtrl.$inject=['NgMap', '$timeout', 'NavFactory', '$q', 'moment'];
     Router.$inject = ['$routeProvider']
 
+// .filter ('formatDate', function() {
+//     return function(start_time) {
+//         return moment(start_time).format('MMMM Do YYYY, h:mm a')
+//     }
+// })
 
 
+angular.module('NavApp').filter( 'domain', function () {
+    return function ( input ) {
+        var matches,
+        output = "",
+        urls = /\w+:\/\/([\w|\.]+)/;
+
+        matches = urls.exec( input );
+
+        if ( matches !== null ) output = matches[1];
+
+        return output;
+    };
+});
 
 /* NgRoute */
 function Router($routeProvider) {
-
 
     $routeProvider.otherwise({ redirectTo : '/' });
     $routeProvider
@@ -23,26 +45,31 @@ function Router($routeProvider) {
 }
 
 /* NavControl */
-function NavCtrl(NgMap, $timeout, NavFactory, $q) {
+function NavCtrl(NgMap, $timeout, NavFactory, $q, moment) {
     $(document).ready(function(){
         $('#myModal').modal('show');
         $(".modal-backdrop").hide();
     });
 
+    /* Filter to shorten URLs */
+
+
+    moment.locale('en')
 
     console.log('Navctrl:loaded!', NavCtrl)
     var nav = this;
     window.nav = nav;
     nav.showInput = false;
-    nav.wayPoint = [];
     nav.showPlace = false;
-    nav.inputs = [];
     nav.hideButton = true;
+    nav.showOrigin = false;
+    nav.showDest = true;
+    nav.wayPoint = [];
+    nav.inputs = [];
     nav.resData = [];
     nav.musicData = [];
     nav.tripStep = 0;
     nav.eventIndex = 0;
-    nav.showOrigin = false;
 
     nav.getEventIndex = function(index) {
         var newIndex;
@@ -106,6 +133,7 @@ nav.toggle = function() {
 
 /* Function that accesses the getPlace method within the autocomplete object. Returns lat/lng info */
     nav.addWayPoint = function() {
+        nav.showDest= false;
         nav.tripStep++;
         nav.place = nav.AutoComplete.getPlace()
 
@@ -172,6 +200,7 @@ nav.toggle = function() {
                 // TODO:s time here needs to be the calendar selected time for the first iteration of the loop
                 // for every other iteration, time needs to be the previous iteration's arrival time
                 var arrivalTime = new Date(1000*((time.getTime()/1000) + nav.wayDuration.legs[i].duration.value));
+                var displayArrival = moment(arrivalTime).format('MMMM Do YYYY, h:mm:ss a')
                 console.log("ARRIVAL TIME " + i + ": " + arrivalTime)
 
                 var theMoment= moment(arrivalTime).format("YYYY/MM/DD");
@@ -181,6 +210,7 @@ nav.toggle = function() {
                     start_address: nav.wayDuration.legs[i].start_address,
                     end_address: nav.wayDuration.legs[i].end_address,
                     arrival_time: arrivalTime,
+                    displayArrival: displayArrival,
                     format_date: momentSplit,
                     text: nav.wayDuration.legs[i].duration.text,
                     value: nav.wayDuration.legs[i].duration.value
@@ -241,7 +271,7 @@ nav.toggle = function() {
                     destination: nav.destinationInput,
                     text: nav.tText,
                     value: nav.tValue,
-                    format_date: nav.formatSplit
+                    format_date: moment().add(nav.tValue, 'seconds').format('MMMM Do YYYY, h:mm:ss a')
                 });
                 console.log('First leg duration pushed')
             } else {

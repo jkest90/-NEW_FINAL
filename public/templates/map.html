@@ -11,9 +11,9 @@
 <div class="row" id="mapRow">
     <div id ="mapContainer" class="col-xs-12 col-sm-6">
         <!-- ng-map -->
-        <ng-map center="39,-95" zoom="4" default-style="false">
+        <ng-map center="39,-95" zoom="4" map-type-id="TERRAIN" default-style="false">
             <directions
-            draggable="true"
+            draggable="false"
             waypoints="{{nav.wayPoint}}"
             travel-mode="ROADMAP"
             origin= "{{nav.origin}}"
@@ -24,6 +24,20 @@
 <!-- 39.13006&lng=-95.22949&z=5 -->
     <section class="col-xs-12 col-sm-6" id="resultsSection">
 
+        <!-- shows origin/destination event results on load, hidden after addWayPoint() -->
+        <div class="col-xs-12" id="results" ng-show="nav.showDest" >
+            <!-- results -->
+            <h3><span style="font-family: 'Pacifico', cursive"> Origin:  </span>  {{nav.startFinish[0].origin}} </h3>
+            <h3><span style="font-family: 'Pacifico', cursive"> Destination:  </span>
+                <span style="font-family:'Comfortaa', cursive"> {{nav.startFinish[0].destination}}</span></h3>
+            <hr>
+            <div class="col-xs-12">Travel Time: {{nav.startFinish[0].text}}<br>
+                Arrival Time: {{nav.startFinish[0].format_date}}
+                <a class="btn btn-primary" id="findEvents" ng-click="nav.getEventIndex($index)" href="/#/events">Find Events!</a>
+            </div>
+        </div>
+
+        <!-- repeat nav waypoints -->
         <div ng-repeat="leg in nav.cityInfo" class="col-xs-12" id="results">
             <!-- results -->
             <h3><span style="font-family: 'Pacifico', cursive"> Origin:  </span>  {{leg.start_address}} </h3>
@@ -31,17 +45,14 @@
                 <span style="font-family:'Comfortaa', cursive"> {{leg.end_address}}</span></h3>
 
             <hr>
-                <row>
-                    <span class="col-xs-6">Travel time: {{leg.text}}<br>
-                        Arrival time: {{leg.arrival_time}}
-                    </span>
-                    <span class"col-xs-6">
-                        <a class="btn btn-primary" ng-click="nav.getEventIndex($index)" href="/#/events">Get Events</a>
-                    </span>
-                </row>
-            </hr>
+            <div class="row">
+                <div class="col-xs-10">Travel Time: {{leg.text}}<br>
+                    Arrival Time: {{leg.displayArrival}}
+                </div>
+                <div class"col-xs-2">
+                    <a class="btn btn-primary" id="findEvents" ng-click="nav.getEventIndex($index)" href="/#/events">Find Events!</a>
+                </div>
+            </div>
         </div> <!--- end results -->
     </section>
 </div> <!-- end maprow -->
-
-</div> <!-- end map row -->
