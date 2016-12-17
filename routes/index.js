@@ -5,8 +5,11 @@ var event = require('./events.controller.js');
 
 module.exports = function(app) {
     // SITE ROOT
-    app.get('/', (req, res) => { // replace this route with a landing or home page, or break this out into another controller if needed!
-        res.send('home');
+    app.get('/', Auth.render);
+
+    app.all('/home*', Auth.session); 
+    app.get('/home', (req, res)=>{
+        res.sendFile('home.html', {root: 'public'})
     });
     app.get('/events', event.getEvents);
     //AUTH

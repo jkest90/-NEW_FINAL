@@ -6,7 +6,7 @@
 
     <div class="row" id="eventsRow">
         <div class="col-xs-12" id="categoryCol">
-            <a class="active" href="/music"><h3>Music</h3></a>
+            <!-- <a class="active" href="/music"><h3>Music</h3></a>
             <a class="active" href="/comedy"><h3>Comedy</h3></a>
             <a class="active" href="/family_fun_kids"><h3>Family</h3></a>
             <a class="active" href="/art"><h3>Art</h3></a>
@@ -14,10 +14,20 @@
             <a class="active" href="/outdoors_recreation"><h3>Outdoors</h3></a>
             <a class="active" href="/performing_arts"><h3>Performing Arts</h3></a>
             <a class="active" href="/sports"><h3>Sports</h3></a>
-            <a class="active" href="/food"><h3>Food</h3></a>
+            <a class="active" href="/food"><h3>Food</h3></a> -->
+            <button type="button" ng-click="nav.getEventCategory('music')">Music</button>
+            <button type="button" ng-click="nav.getEventCategory('comedy')">Comedy</button>
+            <button type="button" ng-click="nav.getEventCategory('family_fun_kids')">Family</button>
+            <button type="button" ng-click="nav.getEventCategory('art')">Art</button>
+            <button type="button" ng-click="nav.getEventCategory('attractions')">Museums</button>
+            <button type="button" ng-click="nav.getEventCategory('outdoors_recreation')">Outdoors</button>
+            <button type="button" ng-click="nav.getEventCategory('performing_arts')">Performing Arts</button>
+            <button type="button" ng-click="nav.getEventCategory('sports')">Sports</button>
+            <button type="button" ng-click="nav.getEventCategory('food')">Food</button>
         </div>
         <div class="row" id="realEventsRow">
-            <div id="events" class="col-xs-12 " ng-repeat="event in nav.musicData[nav.eventIndex].event" >
+            <!-- <div id="events" class="col-xs-12 " ng-repeat="event in nav.musicData[nav.eventIndex].event" > -->
+            <div id="events" class="col-xs-12 " ng-repeat="event in nav.eventList" >
                     <div class="row" id="eventInfoRow">
                         <div class="col-xs-8" id="eventInfo">
                             <h3><span style="font-family: 'Comfortaa', cursive">{{event.title}}</span></h3>

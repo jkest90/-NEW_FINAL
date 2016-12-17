@@ -9,7 +9,7 @@ angular.module('NavApp')
 
     NavCtrl.$inject=['NgMap', '$timeout', 'NavFactory', '$q', 'moment'];
     Router.$inject = ['$routeProvider'];
-    
+
 // .filter ('formatDate', function() {
 //     return function(start_time) {
 //         return moment(start_time).format('MMMM Do YYYY, h:mm a')
@@ -34,11 +34,11 @@ angular.module('NavApp').filter( 'domain', function () {
 /* NgRoute */
 function Router($routeProvider) {
 
-    $routeProvider.otherwise({ redirectTo : '/map' });
+    //$routeProvider.otherwise({ redirectTo : '/' });
     $routeProvider
-    .when('/', {
-        redirectTo : '/map'
-    })
+    // .when('/', {
+    //     templateUrl : '/home.html'
+    // })
     .when('/events', {
         templateUrl : '/templates/getEvents.html'
     })
@@ -62,6 +62,7 @@ function NavCtrl(NgMap, $timeout, NavFactory, $q, moment) {
     console.log('Navctrl:loaded!', NavCtrl)
     var nav = this;
     window.nav = nav;
+    // nav.factory = NavFactory;
     nav.showInput = false;
     nav.showPlace = false;
     nav.hideButton = true;
@@ -74,6 +75,22 @@ function NavCtrl(NgMap, $timeout, NavFactory, $q, moment) {
     nav.tripStep = 0;
     nav.eventIndex = 0;
 
+    nav.getEventCategory = function(category) {
+        NavFactory.getEvent({
+            lat: nav.cityInfo[nav.eventIndex].lat,
+            lng: nav.cityInfo[nav.eventIndex].lng,
+            date: nav.cityInfo[nav.eventIndex].format_date,
+            category: category
+        }).then(function(success){
+            console.log("Got some events for the category ", category, success.data);
+            // set the data to a controller property so we can ng-repeat over it on the events page
+            nav.eventList = success.data.events.event;
+            console.log("EVENT LIST ", nav.eventList);
+        }, function(error){
+            console.log("Error retrieving events for category ", category, error);
+        });
+    }
+
     nav.getEventIndex = function(index) {
         var newIndex;
         if(index === nav.cityInfo.length-1){
@@ -81,7 +98,8 @@ function NavCtrl(NgMap, $timeout, NavFactory, $q, moment) {
         } else {
             newIndex = index+1;
         }
-        nav.eventIndex = newIndex;
+        //nav.eventIndex = newIndex;
+        nav.eventIndex = index;
     }
 
     // function changeCat(nav.category) {
@@ -198,6 +216,11 @@ nav.toggle = function() {
                     time = nav.cityInfo[i-1].arrival_time;
                 }
 
+
+
+                console.log("Trying to get lat/lng: " + nav.map.directionsRenderers[0].directions.routes[0].legs[i].end_location.lat() + " " +
+                nav.map.directionsRenderers[0].directions.routes[0].legs[i].end_location.lng());
+
                 console.log("Seconds " + i + ": " + time);
 
                 // TODO:s time here needs to be the calendar selected time for the first iteration of the loop
@@ -216,7 +239,9 @@ nav.toggle = function() {
                     displayArrival: displayArrival,
                     format_date: momentSplit,
                     text: nav.wayDuration.legs[i].duration.text,
-                    value: nav.wayDuration.legs[i].duration.value
+                    value: nav.wayDuration.legs[i].duration.value,
+                    lat: nav.map.directionsRenderers[0].directions.routes[0].legs[i].end_location.lat(),
+                    lng: nav.map.directionsRenderers[0].directions.routes[0].legs[i].end_location.lng(),
                 });
             }
             console.log('city waypoint info pushed', nav.cityInfo);

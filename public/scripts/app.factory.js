@@ -6,6 +6,7 @@ NavFact.$inject = ['$http'];
 function NavFact($http) {
 
     function getEvent(params) {
+        console.log("PARAMS: ", params);
         return $http({
             method:"GET",
             url: '/events',

@@ -5,7 +5,8 @@ var config = require('./package'),
     bodyParser = require('body-parser'), // used for POST routes to obtain the POST payload as a property on `req`
     path = require('path'), // used to resolve paths across OSes
     logger = require('morgan')('dev'), // log the routes being accessed by the frontend
-    fileserver = express.static(path.join(__dirname,'public')), // turn the public folder into a file server
+    fileserver = express.static(path.join(__dirname,'public')); // turn the public folder into a file server
+var Auth = require('./routes/auth');
 
     mongoose = require('mongoose').connect('mongodb://localhost/'.concat(config.name), ( error ) => {
         if( error ) {
@@ -31,13 +32,16 @@ var config = require('./package'),
 // server setup
 app.use(logger);    // mounting dev logging
 app.use(sessions); // mounting HTTPs session cookies
+
+// mount the body-parsing middleware to parse payload strings into `body` object stored in `req.body`
+app.post('*', bodyParser.json(), bodyParser.urlencoded({ extended:true }));
+
+
 app.use(fileserver);
 
 // enable server-side rendering
 app.set('view engine', 'ejs');
 
-// mount the body-parsing middleware to parse payload strings into `body` object stored in `req.body`
-app.post('*', bodyParser.json(), bodyParser.urlencoded({ extended:true }));
 
 require('./routes')(app); // do all the routing stuff in a separate file by passing a reference of the app!
 // routes = require('./routes/routes.controller.js'),
